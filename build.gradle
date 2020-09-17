@@ -16,7 +16,14 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
+}
+
+ext {
+    roomVersion = '2.2.1'
+    archLifecycleVersion = '2.2.0'
+    materialVersion = '1.0.0'
 }
 
 task clean(type: Delete) {

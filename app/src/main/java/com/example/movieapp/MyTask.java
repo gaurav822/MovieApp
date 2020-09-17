@@ -2,6 +2,8 @@ package com.example.movieapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
@@ -25,7 +27,6 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import Fragments.Home;
 
 public class MyTask extends AsyncTask<Void,Void,String>
 {
@@ -37,6 +38,7 @@ public class MyTask extends AsyncTask<Void,Void,String>
     ProgressDialog pd;
     RecyclerView myRv;
 
+
     public MyTask(MainActivity mainActivity, RecyclerView recyclerView, String url) {
         ct=mainActivity;
         myRv=recyclerView;
@@ -47,16 +49,17 @@ public class MyTask extends AsyncTask<Void,Void,String>
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pd=new ProgressDialog(ct);
-        pd.setMessage("Please wait");
-        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pd.show();
+//        pd=new ProgressDialog(ct);
+//        pd.setMessage("Please wait");
+//        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        pd.show();
     }
 
     @Override
     protected String doInBackground(Void... voids) {
 
         try {
+
             URL u=new URL(myUrl);
             HttpsURLConnection connection = (HttpsURLConnection) u.openConnection();
             InputStream is= connection.getInputStream();
@@ -81,11 +84,14 @@ public class MyTask extends AsyncTask<Void,Void,String>
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         //Toast.makeText(ct, ""+s, Toast.LENGTH_SHORT).show();
-        pd.dismiss();
+//        pd.dismiss();
 
         List<Movie> movieList = new ArrayList<>();
 
         try {
+            
+
+
             JSONObject rootJsonObject=new JSONObject(s);
             JSONArray itemsJsonArray = rootJsonObject.getJSONArray("results");
 
@@ -102,6 +108,14 @@ public class MyTask extends AsyncTask<Void,Void,String>
                 String overview = indexObject.optString("overview");
                 String release_date = indexObject.optString("release_date");
                 String poster_path = indexObject.optString("poster_path");
+//
+//                JSONArray genreJsonArray = indexObject.getJSONArray("genre_ids");
+//
+//                String genreString = "";
+//
+//                for (int j = 0; j < genreJsonArray.length(); j++) {
+//                    genreString=genreString+Integer.toString((Integer) genreJsonArray.get(j));
+//                }
 
                 String final_posterpath=poster_main_path+poster_path;
 
@@ -122,4 +136,5 @@ public class MyTask extends AsyncTask<Void,Void,String>
 
 
     }
+
 }

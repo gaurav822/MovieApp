@@ -1,6 +1,7 @@
 package com.example.movieapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +36,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.MyViewHolder holder, int position) {
-        Movie b= myList.get(position);
+        final Movie b= myList.get(position);
         holder.tv_title.setText(b.getTitle());
+        holder.tv_rating.setText(b.getVoteAverage());
 
         //Picaso or Glide. These are two third party Libraries to set image url to  the imageview
 
         Picasso.get().load(b.getPosterPath()).into(holder.iv);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(myCt,MovieDescription.class);
+                intent.putExtra("imagepath",b.getPosterPath());
+                intent.putExtra("title",b.getTitle());
+                intent.putExtra("releasedate",b.getReleaseDate());
+                intent.putExtra("overview",b.getOverview());
+                myCt.startActivity(intent);
+            }
+        });
 
     }
 
@@ -57,6 +71,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             super(itemView);
             iv = itemView.findViewById(R.id.movieImage);
             tv_title=itemView.findViewById(R.id.movieName);
+            tv_rating=itemView.findViewById(R.id.movieRating);
         }
     }
 }

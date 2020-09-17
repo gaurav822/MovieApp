@@ -25,6 +25,7 @@ public class Movie implements Serializable {
         this.overview = overview;
         this.releaseDate = releaseDate;
         this.posterPath = posterPath;
+
     }
 
 
@@ -111,4 +112,5 @@ public class Movie implements Serializable {
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
+
 }
