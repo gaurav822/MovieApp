@@ -7,4 +7,9 @@
 ->Users can make their own watchlists as well.
 
 
+## Third Party Libraries used.
+
+implementation 'com.google.android.material:material:1.1.0'
+implementation 'com.squareup.picasso:picasso:2.71828'
+
 ### TheMovietheDB API is implemented for the project.
