@@ -4,5 +4,7 @@
 
 ->User can search for the movies of their choices as well.
 
+->Users can make their own watchlists as well.
+
 
 ### TheMovietheDB API is implemented for the project.
